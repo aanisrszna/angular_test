@@ -1,0 +1,65 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* 10px top and bottom, 20px left and right */
+    background-color: #333;
+    color: white;
+    margin: 0 auto;
+    font-size: 10px; /* Change this value to adjust the font size */
+  }
+  
+  .sign-out {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sign-out i {
+    margin-right: 8px; /* Space between icon and text */
+  }
+  
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .overview {
+    margin-bottom: 20px;
+  }
+  
+  .charts {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .chart-card {
+    width: 48%;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: white;
+  }
+  
+  .chart-card h3 {
+    margin-top: 0;
+  }
+  
+  .user-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .user-list th, .user-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .user-list th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
