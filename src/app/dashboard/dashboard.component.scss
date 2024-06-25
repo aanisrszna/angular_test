@@ -2,29 +2,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; /* 10px top and bottom, 20px left and right */
+    padding: 10px;
     background-color: #333;
-    color: white;
-    margin: 0 auto;
-    font-size: 10px; /* Change this value to adjust the font size */
+    color: #fff;
+  }
+  
+  .header h1 {
+    margin: 0;
   }
   
   .sign-out {
-    background-color: #444;
-    color: white;
+    background: none;
     border: none;
-    padding: 10px 20px;
+    color: #fff;
+    font-size: 16px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  
-  .sign-out i {
-    margin-right: 8px; /* Space between icon and text */
   }
   
   .container {
-    width: 100%;
     padding: 20px;
   }
   
@@ -34,23 +29,21 @@
   
   .charts {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   
   .chart-card {
-    width: 48%;
-    border: 1px solid #ddd;
+    width: 45%;
+    background: #fff;
     padding: 20px;
-    background-color: white;
-  }
-  
-  .chart-card h3 {
-    margin-top: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
   }
   
   .user-list table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
   }
   
   .user-list th, .user-list td {
@@ -61,5 +54,21 @@
   .user-list th {
     background-color: #f2f2f2;
     text-align: left;
+  }
+  
+  .col-small {
+    width: 5%;
+  }
+  
+  .col-medium {
+    width: 20%;
+  }
+  
+  .col-large {
+    width: 55%;
+  }
+  
+  .table-row {
+    height: 60px
   }
   

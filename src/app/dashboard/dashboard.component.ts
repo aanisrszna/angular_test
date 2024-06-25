@@ -1,10 +1,12 @@
+
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CommonModule, NgFor } from '@angular/common';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DashboardData, User } from '../interfaces/dashboard.interface';
 import { PlotlyModule } from 'angular-plotly.js';
 import * as PlotlyJS from 'plotly.js-dist';
+import { DashboardService } from '../service/dashboard.service';
+import { DashboardData, User } from '../interfaces/dashboard.interface';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -13,7 +15,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, PlotlyModule, NgFor]
+  imports: [CommonModule, ReactiveFormsModule, PlotlyModule]
 })
 export class DashboardComponent implements OnInit {
   dashboardData: DashboardData | null = null;
@@ -23,9 +25,8 @@ export class DashboardComponent implements OnInit {
   donutChartLayout: any;
   barChartData: any;
   barChartLayout: any;
-  private dashboardUrl = 'http://test-demo.aemenersol.com/api/dashboard';
 
-  constructor(private http: HttpClient) {}
+  constructor(private dashboardService: DashboardService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadDashboardData();
@@ -33,15 +34,10 @@ export class DashboardComponent implements OnInit {
 
   loadDashboardData(): void {
     const token = localStorage.getItem('token');
-
     if (token) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      this.http.get<DashboardData>(this.dashboardUrl, { headers }).subscribe(
+      this.dashboardService.getDashboardData(token).subscribe(
         data => {
           this.dashboardData = data;
-          console.log('Dashboard data:', data);  // Log the data to the console
-
-          // Populate the user list and chart data
           this.userList = data.tableUsers;
           this.setupCharts(data);
         },
@@ -57,30 +53,35 @@ export class DashboardComponent implements OnInit {
   }
 
   setupCharts(data: DashboardData): void {
-    // Setup your donut chart data and layout
     this.donutChartData = [{
       values: data.chartDonut.map(item => item.value),
       labels: data.chartDonut.map(item => item.name),
       type: 'pie',
-      hole: .4
+      hole: .4,
+      marker: {
+        colors: ['#9e9e9e', '#aeaeae', '#bebebe', '#cdcdcd']
+      }
     }];
     this.donutChartLayout = {
-      title: 'Donut Chart'
+      title: '',
+      showlegend: true
     };
 
-    // Setup your bar chart data and layout
     this.barChartData = [{
       x: data.chartBar.map(item => item.name),
       y: data.chartBar.map(item => item.value),
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: '#9e9e9e' 
+      }
     }];
     this.barChartLayout = {
-      title: 'Bar Chart'
+      title: ''
     };
   }
 
   signOut(): void {
     localStorage.removeItem('token');
-    // Navigate to sign-in or home page
+    this.router.navigate(['/sign-in']);
   }
 }

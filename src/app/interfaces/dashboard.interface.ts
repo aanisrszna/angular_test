@@ -1,5 +1,3 @@
-// src/app/interfaces/dashboard.interface.ts
-
 export interface DonutChart {
     name: string;
     value: number;
