@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    return !! this.getToken();
   }
 
   logout(): void {
