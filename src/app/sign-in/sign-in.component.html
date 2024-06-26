@@ -5,9 +5,10 @@
     </div>
     <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <input type="text" formControlName="username" placeholder="Username" />
+        <input type="text" formControlName="username" placeholder="Email" />
         <div *ngIf="signInForm.controls['username'].invalid && signInForm.controls['username'].touched" class="error-message">
-          Username is required
+          <div *ngIf="signInForm.controls['username'].errors?.['required']">Email is required</div>
+          <div *ngIf="signInForm.controls['username'].errors?.['email']">Enter a valid email address</div>
         </div>
       </div>
       <div class="form-group">

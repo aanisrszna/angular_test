@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -43,12 +42,19 @@ export class DashboardComponent implements OnInit {
         },
         error => {
           console.error('Error fetching dashboard data', error);
-          this.errorMessage = 'Failed to load dashboard data';
+          if (error.status === 401 || error.status === 403) {
+            this.errorMessage = 'Invalid token. Please sign in again.';
+            console.log('Error Message:', this.errorMessage); 
+            localStorage.removeItem('token'); 
+            this.router.navigate(['/sign-in'], { queryParams: { error: this.errorMessage } }); 
+          }
         }
       );
     } else {
       this.errorMessage = 'No authentication token found';
+      console.log('Error Message:', this.errorMessage); 
       console.error('No authentication token found');
+      this.router.navigate(['/sign-in'], { queryParams: { error: this.errorMessage } }); 
     }
   }
 
@@ -72,7 +78,7 @@ export class DashboardComponent implements OnInit {
       y: data.chartBar.map(item => item.value),
       type: 'bar',
       marker: {
-        color: '#9e9e9e' 
+        color: '#9e9e9e'
       }
     }];
     this.barChartLayout = {
